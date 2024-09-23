@@ -1,0 +1,149 @@
+header > *{
+    z-index: 20;
+}
+
+.headerBar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: rgb(49, 49, 49);
+    width: 100vw;
+    height: 50px;
+    color: #F1F2F3;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.projectsHolder{
+    position: fixed;
+    top: -1000px;
+    height: 300px;
+    right: 0;
+    z-index: 500;
+}
+
+.individualProject{
+    background-color: rgb(128, 126, 126);
+    color: #F1F2F3;
+    height: 50px;
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.individualProject{
+    text-decoration: none;
+}
+
+.individualProject:hover{
+    color: black;
+}
+
+#links{
+    position: fixed;
+    right: 100px;
+    display: flex;
+    justify-content: end;
+    z-index: -1;
+}
+
+.otherLink{
+    color: #F1F2F3;
+    text-decoration: none;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerBar > span{
+    background-color: black;
+    cursor: default;
+    color: #F1F2F3;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+}
+
+.headerBar > span:hover{
+    background-color: teal;
+    cursor: pointer;
+}
+
+.otherLink:hover{
+    background-color: teal;
+}
+
+.sideButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    display: none;
+}
+
+.sideButton:hover{
+    cursor: pointer;
+}
+
+.sideMenu{
+    position: fixed;
+    top: 0px;
+    left: -200px;
+    display: none;
+    min-height: 100vh;
+    max-height: 100vh;
+    background-color: rgb(128, 126, 126);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    border-right: 1px solid black;
+}
+
+.sideMenu > a {
+    background-color: rgb(128, 126, 126);
+    color: #F1F2F3;
+    width: 200px;
+    font-size: 14px;
+    border-bottom: 1px solid black;
+}
+
+.sideMenu > a:hover{
+    background-color: teal;
+}
+
+.sideMenu > div {
+    width: 200px;
+    height: 30px;
+    background-color: black;
+    color: #F1F2F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .headerBar {
+        display: none;
+    }
+    
+    .projectsHolder{
+        display: none;
+    }
+
+    .sideButton{
+        display: flex;
+    }
+
+    .sideMenu{
+        display: block;
+    }
+}

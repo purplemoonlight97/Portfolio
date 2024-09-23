@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <link href="choroplethStyles.css" rel="stylesheet"/>
+    <title>Choropleth Map</title>
+</head>
+<header id="websiteHeader"></header>
+<script src="../Header/header.js"></script>
+<body>
+    <h1 id="title">United States Educational Attainment</h1>
+    <h2 id="description">Percentage of adults age 25 and older with a bachelor's degree or higher (2010-2014)</h2>
+    <script>
+        const w = 960;
+        const h = 600;
+        const legendW = w/3;
+        const legendPadding = 30;
+        const colors = ["#F1F2F3", "#a7d3fa", "#4aabff", "#003cff"];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json')
+                .then(resonse => resonse.json())
+                .then(topoData => {
+                    fetch('https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json')
+                        .then(resonse => resonse.json())
+                        .then(bachelorData => {
+
+                            function getBachelorDataId(id){
+                                for(let i = 0; i < bachelorData.length; i++){
+                                    if (bachelorData[i].fips === id){
+                                        return i;
+                                    }
+                                }
+                            }
+
+                            function fillColor(id){
+                                if(bachelorData[id].bachelorsOrHigher <= 10){
+                                    return colors[0];
+                                } else if (bachelorData[id].bachelorsOrHigher <= 20){
+                                    return colors[1];
+                                } else if (bachelorData[id].bachelorsOrHigher <= 30){
+                                    return colors[2];
+                                }
+                                return colors[3];
+                            }
+
+                            const legendScale = d3.scaleLinear()
+                                                    .domain([0, 40])
+                                                    .range([legendPadding, legendW - legendPadding])
+
+                            const legendAxis = d3.axisBottom(legendScale)
+                                                    .tickValues(["0", "10", "20", "30"]);
+
+                            //tooltip
+                            const tooltip = d3.select("body")
+                                                .append("div")
+                                                .attr("id", "tooltip")
+                                                .attr("class", "tooltip")
+                                                .style("position", "absolute")
+                                                .style("visibility", "hidden")
+                                                .style("top", 50 + "vh")
+                                                .text("This is a rectangle");
+
+                            const svg = d3.select("body")
+                                            .append("svg")
+                                            .attr("width", w)
+                                            .attr("height", h)
+                                            .attr("class", "chart");
+                            const legend = d3.select("body")
+                                                .append("svg")
+                                                .attr("width", legendW)
+                                                .attr("height", 50)
+                                                .attr("class", "legend")
+                                                .attr("id", "legend");
+                            const myProjection = d3.geoAlbersUsa();
+                            const path = d3.geoPath(myProjection);
+                            const geojson = topojson.feature(topoData, topoData.objects.counties).features;
+
+                            legend.append("g")
+                                .attr("transform", "translate(" + 0 + "," + 25 + ")")
+                                .call(legendAxis);
+
+                            legend.selectAll("rect")
+                                .data(colors)
+                                .enter()
+                                .append("rect")
+                                .attr("fill", (d) => d)
+                                .attr("width", (legendW - (2 * legendPadding))/4)
+                                .attr("y", 9)
+                                .attr("height", 20)
+                                .attr("x", (d) => colors.indexOf(d) * ((legendW - (2 * legendPadding))/4) + legendPadding)
+
+                            svg.selectAll("path")
+                                .data(geojson)
+                                .enter()
+                                .append("path")
+                                .attr("d", d3.geoPath())
+                                .attr("fill", (d) => fillColor(getBachelorDataId(d.id)))
+                                .attr("data-fips", (d) => bachelorData[getBachelorDataId(d.id)].fips)
+                                .attr("data-education", (d) => bachelorData[getBachelorDataId(d.id)].bachelorsOrHigher)
+                                .attr("data-name", (d) => bachelorData[getBachelorDataId(d.id)].area_name)
+                                .attr("data-state", (d) => bachelorData[getBachelorDataId(d.id)].state)
+                                .attr("class", "county")
+                                .on("mouseover", function(event, data) {
+                            
+                                    const cell = d3.select(this)
+                                    
+                                    tooltip.style("visibility", "visible")
+                                            .html(`${cell.attr("data-name")}, ${cell.attr("data-state")}: ${cell.attr("data-education")}%`)
+                                            .attr("data-education", cell.attr("data-education"));
+                                })
+                                .on("mouseout", () => {
+                                        tooltip.style("visibility", "hidden")
+                                })
+                                .on("mousemove", function(event) {
+                                    tooltip.style("left", (Number(event.pageX) + 20) + "px")
+                                            .style("top", (Number(event.pageY)) + "px")
+                                }) 
+                    })
+                })
+
+            })
+    </script>
+</body>
+</html>

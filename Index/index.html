@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet"/>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <title>Document</title>
+</head>
+<header id="websiteHeader"></header>
+<script src="../header/header.js"></script>
+<body>
+     <main>
+        <div class="aboutMe">
+            <h1>I am Zoë Artemis.</h1>
+            <span id="firstDescriptor" class="descriptor" style="opacity: 0;">Web Developer.</span>
+            <span class="descriptor" style="opacity: 0;">Software Engineer.</span>
+            <span class="descriptor" style="opacity: 0;">Creator.</span>
+            <span class="descriptor" style="opacity: 0;"><em>Take a look...</em></span>
+            <script>
+                function delaySpans(){
+                    spans = document.getElementsByClassName("descriptor");
+
+                    for (let i = 0; i < spans.length; i++){
+                        setTimeout(() => {
+                            spans[i].style.opacity = 1;
+                        }, 800 * (i+1));
+                    }
+                };
+
+                window.addEventListener("load", delaySpans);
+            </script>
+        </div>
+        <div id="portfolio">
+            <div id="portfolioHorizontalBar">
+                <div>
+                    <!-- <img class="logo" src="./images/icon.png"/> -->
+                </div>
+            </div>
+            <div id="portfolioVerticalBar">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <!-- <img class="flair" src="./images/icon.png"/> -->
+            </div>
+            <div id="portfolioBody">
+                <div class="projectBlock">
+                    <div class="projectInformation">
+                        <div class="projectDescription">
+                            <div class="projectText">
+                                <p>A calculator for the juice in Pokemon HeartGold and Pokemon SoulSilver that affects your Pokemon's stats in the Pokeathalon developed with React.</p>
+                            </div>
+                            <div class="projectTagsHolder">
+                                <div class="projectTag">React</div>
+                                <div class="projectTag">HTML</div>
+                                <div class="projectTag">CSS</div>
+                                <div class="projectTag">JavaScript</div>
+                            </div>
+                        </div>
+                        <img src="../images/aprijuiceCalculator.png" alt="Image of Aprijuice Calculator Project" style="object-fit: cover;" class="projectImage"/>
+                    </div>
+                    <a href="../Aprijuice/index.html" class="projectTitle"><span>Pokemon HGSS Aprijuice Calculator</span></a>
+                </div>
+                <div class="projectBlock">
+                    <div class="projectInformation">
+                        <div class="projectDescription">
+                            <div class="projectText">
+                                <p>A four function calculator developed with React for your everyday calculations.</p>
+                            </div>
+                            <div class="projectTagsHolder">
+                                <div class="projectTag">React</div>
+                                <div class="projectTag">HTML</div>
+                                <div class="projectTag">CSS</div>
+                                <div class="projectTag">JavaScript</div>
+                            </div>
+                        </div>
+                        <img src="../images/CalculatorReact.png" alt="Image of Calculator Project" style="object-fit: cover;" class="projectImage"/>
+                    </div>
+                    <a href="../CalculatorApp/index.html" class="projectTitle"><span>Four Function Calculator</span></a>
+                </div>
+                <div class="projectBlock">
+                    <div class="projectInformation">
+                        <div class="projectDescription">
+                            <div class="projectText">
+                                <p>A heat map of global temperatures created with D3.</p>
+                            </div>
+                            <div class="projectTagsHolder">
+                                <div class="projectTag">D3</div>
+                                <div class="projectTag">API</div>
+                                <div class="projectTag">HTML</div>
+                                <div class="projectTag">CSS</div>
+                                <div class="projectTag">JavaScript</div>
+                            </div>
+                        </div>
+                        <img src="../images/D3HeatMap.png" alt="Image of Heat Map Project" style="object-fit: cover;" class="projectImage"/>
+                    </div>
+                    <a href="../HeatMap/heatMap.html" class="projectTitle"><span>Global Temperatures</span></a>
+                </div>
+                <div class="projectBlock">
+                    <div class="projectInformation">
+                        <div class="projectDescription">
+                            <div class="projectText">
+                                <p>A choropleth of United States education rates created with D3.</p>
+                            </div>
+                            <div class="projectTagsHolder">
+                                <div class="projectTag">D3</div>
+                                <div class="projectTag">API</div>
+                                <div class="projectTag">HTML</div>
+                                <div class="projectTag">CSS</div>
+                                <div class="projectTag">JavaScript</div>
+                            </div>
+                        </div>
+                        <img src="../images/ChoroplethEducation.png" alt="Image of Chopleth Map Project" style="object-fit: cover;" class="projectImage"/>
+                    </div>
+                    <a href="../ChoroplethMap/Choropleth.html" class="projectTitle"><span>US Education Rates</span></a>
+                </div>
+            </div>
+        </div>
+        <div id="contact">
+            <!-- <p>Email me at <a href="mailto:example@example.com">example@example.com</a></p> -->
+             <p>Coming soon!</p>
+        </div>
+     </main>
+     <footer>
+        <div>Designed and Developed by Zoë Artemis.</div>
+        <div>Proudly open source | <a href="" target="_blank">Github</a></div>
+     </footer>
+</body>
+</html>

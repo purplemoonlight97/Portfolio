@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <link href="./heatStyles.css" rel="stylesheet"/>
+    <title>Heat Map Project</title>
+</head>
+<header id="websiteHeader"></header>
+<script src="../Header/header.js"></script>
+<body>
+    <script>
+        const w = 1400;
+        const h = 600;
+        const padding = 100;
+        const legendW = 500;
+        const legendH = 100;
+        const legendPadding = 50;
+        const variances = [-4,-3,-2,-1,0,1,2,3,4,5];
+        const month = ["January","February","March","April","May","June","July", "August","September","October","November","December"];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json')
+                .then(resonse => resonse.json())
+                .then(data => {
+
+                    const baseTemperature = Number(data.baseTemperature);
+
+                    //tooltip
+                    const tooltip = d3.select("body")
+                                        .append("div")
+                                        .attr("id", "tooltip")
+                                        .attr("class", "tooltip")
+                                        .style("position", "absolute")
+                                        .style("visibility", "hidden")
+                                        .style("top", 50 + "vh")
+                                        .text("This is a rectangle")
+
+                    //fill function
+                    const fill = (d) => {
+                        if(d <= variances[0]){
+                            return "#0d00ff";
+                        } else if(d <= variances[1]){
+                            return "#473dff"
+                        } else if(d <= variances[2]){
+                             return "#7872f7";
+                        } else if(d <= variances[3]){
+                            return "#8b85f2";
+                        } else if(d <= variances[4]){
+                            return "#f2f2c9";
+                        } else if(d <= variances[5]){
+                            return "#def285";
+                        } else if(d <= variances[6]){
+                            return "#d3f051";
+                        } else if(d <= variances[7]){
+                            return "#f08b43";
+                        } else if(d <= variances[8]){
+                            return "#fc6900";
+                         }
+                            return "red";
+                    }
+
+                    //makes the main chart
+                    const svg = d3.select("body")
+                                    .append("svg")
+                                    .attr("width", w)
+                                    .attr("height", h)
+                                    .attr("class", "chart");
+                    
+                    //makes the chart's legend
+                    const legend = d3.select("body")
+                                        .append("svg")
+                                        .attr("width", legendW)
+                                        .attr("height", legendH)
+                                        .attr("id", "legend");
+
+                    //legend's scale and axis
+                    const legendScale = d3.scaleLinear()
+                                            .domain([baseTemperature - 5, baseTemperature + 7])
+                                            .range([legendPadding, legendW - legendPadding]);
+
+                    const legendXAxis = d3.axisBottom(legendScale);
+
+                    legend.append("g")
+                            .attr("transform", "translate(0," + (legendH - legendPadding) + ")")
+                            .call(legendXAxis);
+
+                    legend.selectAll("rect")
+                            .data(variances)
+                            .enter()
+                            .append("rect")
+                            .attr("x", (d, i) => legendScale(d + baseTemperature))
+                            .attr("y", legendH - legendPadding - 20)
+                            .attr("height", 20)
+                            .attr("width", (legendW - (legendPadding * 2)) / variances.length)
+                            .attr("fill", (d) => fill(d))
+                            .attr("stroke", "black")
+                            .attr("stroke-width", "2px")
+
+                    //establish the chart's scales and axes
+                    const xScale = d3.scaleLinear()
+                                        .domain([d3.min(data.monthlyVariance, (d) => d.year - 1), d3.max(data.monthlyVariance, (d) => d.year + 1)])
+                                        .range([padding, w - padding]);
+                    
+                    const xAxis = d3.axisBottom(xScale)
+                                    .ticks(20)
+                                    .tickFormat(d3.format("d"));
+
+                    svg.append("g")
+                        .attr("id", "x-axis")
+                        .attr("transform", "translate(0," + (h - padding) + ")")
+                        .call(xAxis);
+
+                    const yScale = d3.scaleLinear()
+                                        .domain([d3.min(data.monthlyVariance, (d) => d.month) - 0.5, d3.max(data.monthlyVariance, (d) => d.month) + 0.5])
+                                        .range([padding, h - padding]);
+
+                    const yAxis = d3.axisLeft(yScale)
+                                    .tickFormat((d, i) => month[i]);
+
+                    svg.append("g")
+                        .attr("id", "y-axis")
+                        .attr("transform", "translate(" + padding + ", 0)")
+                        .call(yAxis);
+
+                    //title and subtitle
+                    svg.append("text")
+                        .attr("x", w/2)
+                        .attr("y", padding / 3)
+                        .attr("text-anchor", "middle")
+                        .attr("id", "title")
+                        .style("font-size", "24px")
+                        .text("Monthly Global Land-Surface Temperature");
+
+                    svg.append("text")
+                        .attr("x", w/2)
+                        .attr("y", 2 * (padding / 3))
+                        .attr("text-anchor", "middle")
+                        .attr("id", "description")
+                        .style("font-size", "20px")
+                        .text(`${d3.min(data.monthlyVariance, (d) => d.year)} - ${d3.max(data.monthlyVariance, (d) => d.year)}: Base Temp. ${baseTemperature}°C`);
+
+                    //cells
+                    svg.selectAll("rect")
+                        .data(data.monthlyVariance)
+                        .enter()
+                        .append("rect")
+                        .attr("x", (d) => xScale(d.year - 1))
+                        .attr("y", (d) => yScale(d.month - 0.5))
+                        .attr("height", (h - (2 * padding)) / 12)
+                        .attr("width", w / (d3.max(data.monthlyVariance, (d) => d.year) - d3.min(data.monthlyVariance, (d) => d.year)))
+                        .attr("fill", (d) => fill(d.variance))
+                        .attr("class", "cell")
+                        .attr("data-month", (d) => d.month - 1)
+                        .attr("data-year", (d) => d.year)
+                        .attr("data-temp", (d) => d.variance)
+                        .on("mouseover", function(event, data) {
+                            
+                            const cell = d3.select(this)
+                            
+                            tooltip.style("visibility", "visible")
+                                    .html(`${cell.attr("data-year")} - ${month[cell.attr("data-month")]}<br/>
+                                            ${(Number(cell.attr("data-temp")) + baseTemperature).toFixed(1)}°C<br/>
+                                            ${Number(cell.attr("data-temp")) > 0 ? "+" : ""}${(Number(cell.attr("data-temp")).toFixed(1))}°C
+                                    `)
+                                    .attr("data-year", d3.select(this).attr("data-year"))
+                        })
+                        .on("mouseout", () => {
+                                tooltip.style("visibility", "hidden")
+                        })
+                        .on("mousemove", function() {
+                               tooltip.style("left", (Number(d3.select(this).attr("x")) + (window.innerWidth - w) / 2) + "px")
+                                        .style("top", (Number(d3.select(this).attr("y"))) + "px")
+                        })                    
+                })
+            
+            })
+
+    </script>
+</body>
+</html>

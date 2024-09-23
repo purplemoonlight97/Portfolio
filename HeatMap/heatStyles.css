@@ -1,0 +1,35 @@
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: lightcoral;
+    padding: 0;
+    margin: 50px 0 0 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.chart{
+    margin: auto;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.cell:hover{
+    stroke: black;
+    stroke-width: 3px;
+}
+
+#legend{
+    background-color: white;
+    border: 1px solid black;
+    margin: auto;
+}
+
+.tooltip{
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    opacity: 0.8;
+}
