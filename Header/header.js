@@ -10,7 +10,7 @@ const headerHTML = `
                         <img src="../images/hamburger.png" height="100%" width="100%" alt="Button for expanding side menu" />
                     </div>
                     <div id="mobileOptionMenu" class="sideMenu"></div>
-                    <link href="../Header/header.css" rel="stylesheet"/>
+                    <link href="https://portfolio-vmqu.vercel.app//Header/header.css" rel="stylesheet"/>
                     `;
 
 document.getElementById('websiteHeader').innerHTML = headerHTML;
@@ -25,7 +25,7 @@ const speedFactor = 3; //set higher to increase animation speed
 const projectsArray = [
     {
     name: "Pokemon HGSS Aprijuice Calculator",
-    link: ""
+    link: "https://aprijuice-calculator.vercel.app/"
     },
     {
     name: "Four Function Calculator",
@@ -33,30 +33,30 @@ const projectsArray = [
     },
     {
     name: "Global Temperatures",
-    link: "../HeatMap/heatMap.html"
+    link: "https://portfolio-vmqu.vercel.app//HeatMap/heatMap.html"
     },
     {
         name:"US Education Rates",
-        link:"../ChoroplethMap/Choropleth.html"
+        link:"https://portfolio-vmqu.vercel.app//ChoroplethMap/Choropleth.html"
     },
 ];
 const otherLinkArray = [
     {
     name: "Home",
-    link: "../index/index.html"
+    link: "https://portfolio-vmqu.vercel.app/"
     },
     {
     name: "Portfolio",
-    link: "../index/index.html#portfolio"
+    link: "https://portfolio-vmqu.vercel.app/index.html#portfolio"
     },
     {
         name: "Contact",
-        link: "../index/index.html#contact"
+        link: "https://portfolio-vmqu.vercel.app/index.html#contact"
     },
-    {
+    /*{
     name: "Resume",
-    link: "../index/index.html"
-    }
+    link: "https://portfolio-vmqu.vercel.app/index.html"
+    }*/
 ];
 const numProjects = projectsArray.length;
 
