@@ -10,7 +10,7 @@ const headerHTML = `
                         <img src="../images/hamburger.png" height="100%" width="100%" alt="Button for expanding side menu" />
                     </div>
                     <div id="mobileOptionMenu" class="sideMenu"></div>
-                    <link href="../header/header.css" rel="stylesheet"/>
+                    <link href="../Header/header.css" rel="stylesheet"/>
                     `;
 
 document.getElementById('websiteHeader').innerHTML = headerHTML;
