@@ -27,10 +27,10 @@ const projectsArray = [
     name: "Pokemon HGSS Aprijuice Calculator",
     link: "https://aprijuice-calculator.vercel.app/"
     },
-    {
+    /*{
     name: "Four Function Calculator",
     link: ""
-    },
+    },*/
     {
     name: "Global Temperatures",
     link: "https://portfolio-vmqu.vercel.app//HeatMap/heatMap.html"
