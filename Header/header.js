@@ -24,34 +24,38 @@ const mobileMenu = document.getElementById("mobileOptionMenu");
 const speedFactor = 3; //set higher to increase animation speed
 const projectsArray = [
     {
-    name: "Pokemon HGSS Aprijuice Calculator",
-    link: "https://aprijuice-calculator.vercel.app/"
+    name: "Pokemon Encounter Rate Calculator",
+    link: "https://www.calc.zoeartemis.com"
     },
-    /*{
+    {
+    name: "Pokemon HGSS Aprijuice Calculator",
+    link: "https://www.apri.zoeartemis.com"
+    },
+    {
     name: "Four Function Calculator",
-    link: ""
-    },*/
+    link: "https://www.fourfunction.zoeartemis.com"
+    },
     {
     name: "Global Temperatures",
-    link: "https://portfolio-vmqu.vercel.app//HeatMap/heatMap.html"
+    link: "https://www.zoeartemis.com//HeatMap/heatMap.html"
     },
     {
         name:"US Education Rates",
-        link:"https://portfolio-vmqu.vercel.app//ChoroplethMap/Choropleth.html"
+        link:"https://www.zoeartemis.com//ChoroplethMap/Choropleth.html"
     },
 ];
 const otherLinkArray = [
     {
     name: "Home",
-    link: "https://portfolio-vmqu.vercel.app/"
+    link: "https://zoeartemis.com"
     },
     {
     name: "Portfolio",
-    link: "https://portfolio-vmqu.vercel.app/index.html#portfolio"
+    link: "https://zoeartemis.com/index.html#portfolio"
     },
     {
         name: "Contact",
-        link: "https://portfolio-vmqu.vercel.app/index.html#contact"
+        link: "https://zoeartemis.com/index.html#contact"
     },
     /*{
     name: "Resume",
